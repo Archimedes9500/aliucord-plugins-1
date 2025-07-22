@@ -49,9 +49,24 @@ public class FakeStickers extends Plugin {
 				if (ReflectUtils.getField(param.args[0], "sendability") == StickerUtils.StickerSendability.SENDABLE) return;
 
 				var sticker = ((StickerItem) param.args[0]).getSticker();
+				var ext = "";
+				switch(sticker.getFormatType()){
+					case 1:
+						ext = ".png";
+					break;
+					case 2:
+						ext = ".apng";
+					break;
+					case 3:
+						ext = ".json";
+					break;
+					case 4:
+						ext = ".gif";
+					break;
+				};
 
 				RestAPIParams.Message message = new RestAPIParams.Message(
-					"https://media.discordapp.net/stickers/"+sticker.d()+sticker.b()+"?size=160",
+					"https://media.discordapp.net/stickers/"+sticker.d()+sticker.b()+ext+"?size=160",
 					Long.toString(NonceGenerator.computeNonce(ClockFactory.get())),
 					null,
 					null,
