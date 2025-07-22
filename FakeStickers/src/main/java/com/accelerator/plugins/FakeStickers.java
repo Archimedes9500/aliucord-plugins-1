@@ -48,9 +48,11 @@ public class FakeStickers extends Plugin {
 				// getSendability is patched above to always return SENDABLE so get the real value via reflect
 				if (ReflectUtils.getField(param.args[0], "sendability") == StickerUtils.StickerSendability.SENDABLE) return;
 
-				var sticker = ((StickerItem) param.args[0]).getSticker();
+				Sticker sticker = ((StickerItem) param.args[0]).getSticker();
 				var ext = "";
-				switch(sticker.getFormatType()){
+				StickerFormatType stickerFormatType = sticker.getFormatType();
+				int intType = stickerFormatType.getIntType();
+				switch(intType){
 					case 1:
 						ext = ".png";
 					break;
