@@ -26,8 +26,8 @@ import com.discord.stores.StoreStream;
 //import com.discord.utilities.analytics.AnalyticSuperProperties;
 //import com.aliucord.Http;
 
-import com.discord.chat.bridge.sticker.Sticker;
-import com.discord.chat.bridge.sticker.StickerFormatType;
+import com.discord.api.sticker.Sticker;
+import com.discord.api.sticker.StickerFormatType;
 
 // This class is never used so your IDE will likely complain. Let's make it shut up!
 @SuppressWarnings("unused")
