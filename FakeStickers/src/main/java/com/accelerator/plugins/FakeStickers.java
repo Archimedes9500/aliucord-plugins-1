@@ -49,6 +49,7 @@ public class FakeStickers extends Plugin {
 				if (ReflectUtils.getField(param.args[0], "sendability") == StickerUtils.StickerSendability.SENDABLE) return;
 
 				var sticker = ((StickerItem) param.args[0]).getSticker();
+				var channelId = StoreStream.getChannelsSelected().getId();
 
 				RestAPIParams.Message message = new RestAPIParams.Message(
 					"https://media.discordapp.net/stickers/"+sticker.d()+sticker.b()+"?size=160",
@@ -56,7 +57,7 @@ public class FakeStickers extends Plugin {
 					null,
 					null,
 					Collections.emptyList(),
-					null,
+					StoreStream.Companion.getPendingReplies().getPendingReply(channelId),
 					new RestAPIParams.Message.AllowedMentions(
 							Collections.emptyList(),
 							Collections.emptyList(),
@@ -70,7 +71,7 @@ public class FakeStickers extends Plugin {
 				Utils.threadPool.execute(() -> {
 					//Subscriptions in Java, because you can't do msg.subscribe() like in Kotlin
 					RxUtils.subscribe(
-							RestAPI.getApi().sendMessage(StoreStream.getChannelsSelected().getId(), message),
+							RestAPI.getApi().sendMessage(channelId, message),
 							RxUtils.createActionSubscriber(zz -> {})
 					);
 				});
