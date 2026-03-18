@@ -67,15 +67,8 @@ public class FakeStickers extends Plugin {
 				param.setResult(null);
 
 				// Dismiss sticker picker
-				var stickerListener = ReflectUtils.getField(param.thisObject, "stickerPickerListener");
-				if (stickerListener instanceof WidgetStickerPickerSheet) {
-					var sheet = (WidgetStickerPickerSheet) stickerListener;
-					sheet.dismiss();
-				} else {
-					var listener = (WidgetChatInputAttachments$createAndConfigureExpressionFragment$stickerPickerListener$1) stickerListener;// What a classname jeez
-					//.s here is FlexInputFragment's FlexInputViewModel property (obfuscated to s)
-					WidgetChatInputAttachments.access$getFlexInputFragment$p(listener.this$0).s.hideExpressionTray();
-				}
+				var stickerListener = (StickerPickerListener) ReflectUtils.getField(param.thisObject, "stickerPickerListener");
+				stickerListener.onStickerPicked(sticker);
 			} catch (Throwable e) {
 				this.logger.error(e);
 			}
